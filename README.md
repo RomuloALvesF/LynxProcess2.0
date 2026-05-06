@@ -78,3 +78,7 @@ O `DataContext` é mantido por request e descartado no final (`Application_EndRe
 3. Execute (F5).
 4. Acesse `/Produto` para testar o CRUD.
 
+### Troubleshooting
+
+- Se aparecer `Could not find ... bin\roslyn\csc.exe` ao rodar, faça **Restore NuGet Packages** e depois **Rebuild Solution** no Visual Studio.
+
