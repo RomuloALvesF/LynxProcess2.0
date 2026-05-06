@@ -18,6 +18,7 @@
             <th>@Html.DisplayNameFor(model => model.Nome)</th>
             <th>@Html.DisplayNameFor(model => model.Preco)</th>
             <th>@Html.DisplayNameFor(model => model.Estoque)</th>
+            <th>@Html.DisplayNameFor(model => model.DataAtualizacao)</th>
             <th>Ações</th>
         </tr>
     </thead>
@@ -29,10 +30,14 @@
                 <td>@item.Nome</td>
                 <td>@item.Preco.ToString("C")</td>
                 <td>@item.Estoque</td>
+                <td>@item.DataAtualizacao.ToString("g")</td>
                 <td>
                     <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-sm btn-warning">Editar</a>
-                    <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-sm btn-danger"
-                        onclick="return confirm('Confirma excluir?');">Excluir</a>
+                    @using (Html.BeginForm("DeleteConfirmed", "Produto", new { id = item.Id }, FormMethod.Post, new { style = "display:inline" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Confirma excluir?');">Excluir</button>
+                    }
                 </td>
             </tr>
         }

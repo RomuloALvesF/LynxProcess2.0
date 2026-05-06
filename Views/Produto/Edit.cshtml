@@ -10,6 +10,7 @@
 @using (Html.BeginForm())
 {
     @Html.HiddenFor(m => m.Id)
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
     <div class="form-group">
         @Html.LabelFor(m => m.Nome)
@@ -19,13 +20,13 @@
 
     <div class="form-group">
         @Html.LabelFor(m => m.Preco)
-        @Html.TextBoxFor(m => m.Preco, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Preco, new { @class = "form-control", type = "number", step = "0.01", min = "0.01" })
         @Html.ValidationMessageFor(m => m.Preco)
     </div>
 
     <div class="form-group">
         @Html.LabelFor(m => m.Estoque)
-        @Html.TextBoxFor(m => m.Estoque, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Estoque, new { @class = "form-control", type = "number", min = "0" })
         @Html.ValidationMessageFor(m => m.Estoque)
     </div>
 

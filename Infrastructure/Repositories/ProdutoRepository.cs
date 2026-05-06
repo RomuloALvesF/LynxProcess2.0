@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TesteASPNET.Domain.Entities;
 using TesteASPNET.Infrastructure.Context;
@@ -31,13 +32,18 @@ namespace TesteASPNET.Infrastructure.Repositories
             var prod = GetById(id);
             if (prod != null)
             {
-                _context.Produtos.Remove(prod);
+                prod.DataDelecao = DateTime.Now;
                 _context.SaveChanges();
             }
         }
 
-        public Produto GetById(int id) => _context.Produtos.Find(id);
+        public Produto GetById(int id)
+        {
+            var produto = _context.Produtos.Find(id);
+            if (produto == null) return null;
+            return produto.DataDelecao == null ? produto : null;
+        }
 
-        public IEnumerable<Produto> GetAll() => _context.Produtos.ToList();
+        public IEnumerable<Produto> GetAll() => _context.Produtos.Where(p => p.DataDelecao == null).ToList();
     }
 }

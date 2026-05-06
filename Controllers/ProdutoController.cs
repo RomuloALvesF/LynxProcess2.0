@@ -7,8 +7,6 @@ namespace TesteASPNET.Controllers
     {
         private readonly Application.Services.ProdutoService _service;
 
-        public ProdutoController() : this(new Application.Services.ProdutoService()) { }
-
         public ProdutoController(Application.Services.ProdutoService service)
         {
             _service = service;
@@ -54,6 +52,14 @@ namespace TesteASPNET.Controllers
         }
 
         public ActionResult Delete(int id)
+        {
+            _service.Remover(id);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
         {
             _service.Remover(id);
             return RedirectToAction("Index");
